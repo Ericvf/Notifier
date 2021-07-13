@@ -14,8 +14,11 @@ using Timer = System.Timers.Timer;
 
 namespace Notifier
 {
+
     public partial class MainWindow : Window
     {
+        private static int portNo = 83; 
+
         WebServer w = new WebServer();
         MainVM vm;
 
@@ -28,7 +31,7 @@ namespace Notifier
             this.SetupTimer();
 
             vm = new MainVM(this.LayoutRoot);
-            vm.Update("Notifier started&This app will run in the background");
+            vm.Update($"Notifier started&This app will run in the background on port {portNo}");
             LayoutRoot.Width = 0;
             DataContext = vm;
 
@@ -39,7 +42,7 @@ namespace Notifier
                 timer.Stop();
                 timer.Start();
             };
-            w.Start(83);
+            w.Start(portNo);
 
             Closing += (s, e) =>
             {
